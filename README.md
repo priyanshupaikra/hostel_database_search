@@ -226,3 +226,5 @@ For issues and questions:
 - Backup and restore functionality
 - Email notifications
 - Attendance tracking integration
+
+## Application Image
