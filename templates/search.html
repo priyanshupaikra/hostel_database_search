@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Students - Hostel Face Recognition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-white mb-4">Search Students</h1>
+                <p class="text-gray-100">Find students using various search methods</p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-xl p-8 mb-8">
+                <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Search Method</label>
+                        <select name="search_type" id="searchType" required onchange="toggleSearchFields()"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                            <option value="">Select Search Method</option>
+                            <option value="name">Search by Name</option>
+                            <option value="room_number">Search by Room Number</option>
+                            <option value="enrollment_number">Search by Enrollment Number</option>
+                            <option value="photo">Search by Photo (Face Recognition)</option>
+                        </select>
+                    </div>
+                    
+                    <div id="textSearch" style="display: none;">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Search Value</label>
+                        <input type="text" name="search_value"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                               placeholder="Enter search value">
+                    </div>
+                    
+                    <div id="photoSearch" style="display: none;">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Upload Photo for Recognition</label>
+                        <input type="file" name="search_photo" accept="image/*"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        <p class="text-sm text-gray-500 mt-1">Upload a photo to find matching student</p>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <a href="/" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium transition duration-300">Back to Home</a>
+                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium transition duration-300">Search</button>
+                    </div>
+                </form>
+                
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="mt-4">
+                            {% for message in messages %}
+                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-2">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
+            
+            {% if results %}
+            <div class="bg-white rounded-lg shadow-xl p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Search Results</h2>
+                <div class="grid gap-6">
+                    {% for student in results %}
+                    <div class="border rounded-lg p-6 flex items-center space-x-6">
+                        <div class="flex-shrink-0">
+                            <img src="{{ student.photo_path }}" alt="Student Photo" class="w-24 h-24 rounded-full object-cover">
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-800">{{ student.name }}</h3>
+                            <div class="grid md:grid-cols-2 gap-2 mt-2 text-gray-600">
+                                <p><strong>Room Number:</strong> {{ student.room_number }}</p>
+                                <p>
+                                    <strong>Enrollment:</strong>
+                                    <a href="https://www.ipuranklist.com/student/{{ student.enrollment_number }}" style="color: blue;">
+                                      {{ student.enrollment_number }}
+                                    </a>
+                                </p>
+                                <p><strong>Mobile:</strong> {{ student.mobile_number }}</p>
+                                <p><strong>Course:</strong> {{ student.course }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <script>
+        function toggleSearchFields() {
+            const searchType = document.getElementById('searchType').value;
+            const textSearch = document.getElementById('textSearch');
+            const photoSearch = document.getElementById('photoSearch');
+            
+            if (searchType === 'photo') {
+                textSearch.style.display = 'none';
+                photoSearch.style.display = 'block';
+            } else if (searchType === 'name' || searchType === 'room_number' || searchType === 'enrollment_number') {
+                textSearch.style.display = 'block';
+                photoSearch.style.display = 'none';
+            } else {
+                textSearch.style.display = 'none';
+                photoSearch.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
