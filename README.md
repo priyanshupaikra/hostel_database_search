@@ -227,4 +227,5 @@ For issues and questions:
 - Email notifications
 - Attendance tracking integration
 
-## Application Image
+## Example Screenshort
+![main_page](1..png)
