@@ -228,7 +228,7 @@ For issues and questions:
 - Attendance tracking integration
 
 ## Example Screenshort
-![1stpage](static/upload/1.png)
-![2ndpage](static/upload/2.png)
-![3rdpage](static/upload/3.png)
-![4thpage](static/upload/4.png)
+![1stpage](static/uploads/1.png)
+![2ndpage](static/uploads/2.png)
+![3rdpage](static/uploads/3.png)
+![4thpage](static/uploads/4.png)
