@@ -226,3 +226,9 @@ For issues and questions:
 - Backup and restore functionality
 - Email notifications
 - Attendance tracking integration
+
+## Example Screenshort
+![1stpage](static/uploads/1.png)
+![2ndpage](static/uploads/2.png)
+![3rdpage](static/uploads/3.png)
+![4thpage](static/uploads/4.png)
